@@ -1,0 +1,96 @@
+﻿@model WebApplication1.Models.Geography
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Data Thailand</h1>
+    <p class="lead">
+        All information is referenced from the
+        <a href="https://blog.2my.xyz/2020/08/10/thai-province-data/">this Website</a> in order to study data linking with patterns. MVC and presented in the form of a Dropdown list.
+    </p>
+</div>
+<script>
+    function changeGeo() {
+        document.getElementById('isbool').value = false;
+
+        $("#id_pro").remove();
+        $("#id_am").remove();
+
+
+        $("#myform").attr("action", '@Url.Action("Index", "Home")');
+        $("#myform").submit();
+    };
+    function changeProvince() {
+        document.getElementById('isbool').value = false;
+
+        $("#id_am").remove();
+        //$("#period").remove();
+
+
+        $("#myform").attr("action", '@Url.Action("Index", "Home")');
+        $("#myform").submit();
+    };
+    function changeAmphure() {
+        document.getElementById('isbool').value = false;
+
+        $("#id_tom").remove();
+        //$("#period").remove();
+
+
+        $("#myform").attr("action", '@Url.Action("Index", "Home")');
+        $("#myform").submit();
+    };
+    function changeTumbon() {
+        document.getElementById('isbool').value = false;
+
+        //$("#id_am").remove();
+        //$("#period").remove();
+
+
+        $("#myform").attr("action", '@Url.Action("Index", "Home")');
+        $("#myform").submit();
+    };
+
+
+
+</script>
+<div class="row">
+    <div class="col-md-3">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-horizontal", role = "form", id = "myform", name = "myform" }))
+        {
+            @Html.Hidden("isbool");
+            <h2>Geography</h2>
+            <p>
+                Choose Geography
+            </p>
+            @Html.DropDownList("id_geo",
+                 new SelectList(ViewBag.selectListItem_geo, "Value", "Text"),
+                 "Select Geography", new { @onchange = "changeGeo();" })
+            if (ViewBag.selectListItem_province != null)
+            {
+
+                @Html.DropDownList("id_pro",
+                     new SelectList(ViewBag.selectListItem_province, "Value", "Text"),
+                     "Select Province", new { @onchange = "changeProvince();" })
+            }
+            if (ViewBag.selectListItem_amphure != null)
+            {
+                @Html.DropDownList("id_am",
+                     new SelectList(ViewBag.selectListItem_amphure, "Value", "Text"),
+                     "Select Amphure", new { @onchange = "changeAmphure();" })
+
+            }
+            if (ViewBag.selectListItem_tumbon != null)
+            {
+                @Html.DropDownList("id_tom",
+                     new SelectList(ViewBag.selectListItem_tumbon, "Value", "Text"),
+                     "Select Tumbon", new { @onchange = "changeTumbon();" })
+
+            }
+            
+            
+        }
+    </div>
+</div>

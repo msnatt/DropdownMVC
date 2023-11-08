@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Amphures" EntityType="HMSModel.Amphure" />
+    <EntitySet Name="Articles" EntityType="HMSModel.Article" />
+    <EntitySet Name="Comments" EntityType="HMSModel.Comment" />
+    <EntitySet Name="employees" EntityType="HMSModel.employee" />
+    <EntitySet Name="Geographies" EntityType="HMSModel.Geography" />
+    <EntitySet Name="Provinces" EntityType="HMSModel.Province" />
+    <EntitySet Name="Tumbons" EntityType="HMSModel.Tumbon" />
+    <AssociationSet Name="FK_Amphure_Tumbon" Association="HMSModel.FK_Amphure_Tumbon">
+      <End Role="Amphure" EntitySet="Amphures" />
+      <End Role="Tumbon" EntitySet="Tumbons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Province_Amphure" Association="HMSModel.FK_Province_Amphure">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="Amphure" EntitySet="Amphures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_id" Association="HMSModel.FK_Article_id">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Geography_Province" Association="HMSModel.FK_Geography_Province">
+      <End Role="Geography" EntitySet="Geographies" />
+      <End Role="Province" EntitySet="Provinces" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Amphure">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="province_id" Type="Int32" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="Boolean" />
+    <NavigationProperty Name="Tumbons" Relationship="HMSModel.FK_Amphure_Tumbon" FromRole="Amphure" ToRole="Tumbon" />
+    <NavigationProperty Name="Province" Relationship="HMSModel.FK_Province_Amphure" FromRole="Amphure" ToRole="Province" />
+  </EntityType>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="3" />
+    <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isdeleted" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="HMSModel.FK_Article_id" FromRole="Article" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="article_id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Precision="3" />
+    <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isdeleted" Type="Boolean" />
+    <NavigationProperty Name="Article" Relationship="HMSModel.FK_Article_id" FromRole="Comment" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="iswork" Type="Boolean" />
+    <Property Name="createdOn" Type="DateTime" Precision="3" />
+    <Property Name="isdeleted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Geography">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Provinces" Relationship="HMSModel.FK_Geography_Province" FromRole="Geography" ToRole="Province" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="geography_id" Type="Int32" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="Boolean" />
+    <NavigationProperty Name="Amphures" Relationship="HMSModel.FK_Province_Amphure" FromRole="Province" ToRole="Amphure" />
+    <NavigationProperty Name="Geography" Relationship="HMSModel.FK_Geography_Province" FromRole="Province" ToRole="Geography" />
+  </EntityType>
+  <EntityType Name="Tumbon">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="zip_code" Type="Int32" />
+    <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="amphure_id" Type="Int32" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="Boolean" />
+    <NavigationProperty Name="Amphure" Relationship="HMSModel.FK_Amphure_Tumbon" FromRole="Tumbon" ToRole="Amphure" />
+  </EntityType>
+  <Association Name="FK_Amphure_Tumbon">
+    <End Type="HMSModel.Amphure" Role="Amphure" Multiplicity="1" />
+    <End Type="HMSModel.Tumbon" Role="Tumbon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Amphure">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tumbon">
+        <PropertyRef Name="amphure_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Province_Amphure">
+    <End Type="HMSModel.Province" Role="Province" Multiplicity="1" />
+    <End Type="HMSModel.Amphure" Role="Amphure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Amphure">
+        <PropertyRef Name="province_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_id">
+    <End Type="HMSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="HMSModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="article_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Geography_Province">
+    <End Type="HMSModel.Geography" Role="Geography" Multiplicity="1" />
+    <End Type="HMSModel.Province" Role="Province" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geography">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Province">
+        <PropertyRef Name="geography_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

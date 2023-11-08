@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Amphures">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="province_id" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="deleted_at" Type="bit" />
+  </EntityType>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date" Type="datetime" />
+    <Property Name="value" Type="varchar(max)" />
+    <Property Name="isdeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="article_id" Type="int" Nullable="false" />
+    <Property Name="date" Type="datetime" />
+    <Property Name="body" Type="varchar(max)" />
+    <Property Name="isdeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="age" Type="int" />
+    <Property Name="sex" Type="nchar" MaxLength="10" />
+    <Property Name="iswork" Type="bit" />
+    <Property Name="createdOn" Type="datetime" />
+    <Property Name="isdeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="Geographies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Provinces">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="geography_id" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="deleted_at" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tumbons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="zip_code" Type="int" />
+    <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="amphure_id" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="deleted_at" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Amphure_Tumbon">
+    <End Role="Amphures" Type="Self.Amphures" Multiplicity="1" />
+    <End Role="Tumbons" Type="Self.Tumbons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Amphures">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tumbons">
+        <PropertyRef Name="amphure_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_id">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="article_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Geography_Province">
+    <End Role="Geographies" Type="Self.Geographies" Multiplicity="1" />
+    <End Role="Provinces" Type="Self.Provinces" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geographies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Provinces">
+        <PropertyRef Name="geography_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Province_Amphure">
+    <End Role="Provinces" Type="Self.Provinces" Multiplicity="1" />
+    <End Role="Amphures" Type="Self.Amphures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provinces">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Amphures">
+        <PropertyRef Name="province_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HMSModelStoreContainer">
+    <EntitySet Name="Amphures" EntityType="Self.Amphures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Amphure_Tumbon" Association="Self.FK_Amphure_Tumbon">
+      <End Role="Amphures" EntitySet="Amphures" />
+      <End Role="Tumbons" EntitySet="Tumbons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_id" Association="Self.FK_Article_id">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Geography_Province" Association="Self.FK_Geography_Province">
+      <End Role="Geographies" EntitySet="Geographies" />
+      <End Role="Provinces" EntitySet="Provinces" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Province_Amphure" Association="Self.FK_Province_Amphure">
+      <End Role="Provinces" EntitySet="Provinces" />
+      <End Role="Amphures" EntitySet="Amphures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

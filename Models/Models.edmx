@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Amphures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="province_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="bit" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="value" Type="varchar(max)" />
+          <Property Name="isdeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="article_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="body" Type="varchar(max)" />
+          <Property Name="isdeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="sex" Type="nchar" MaxLength="10" />
+          <Property Name="iswork" Type="bit" />
+          <Property Name="createdOn" Type="datetime" />
+          <Property Name="isdeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Geographies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="geography_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tumbons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="zip_code" Type="int" />
+          <Property Name="name_th" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="amphure_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Amphure_Tumbon">
+          <End Role="Amphures" Type="Self.Amphures" Multiplicity="1" />
+          <End Role="Tumbons" Type="Self.Tumbons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amphures">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tumbons">
+              <PropertyRef Name="amphure_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_id">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Geography_Province">
+          <End Role="Geographies" Type="Self.Geographies" Multiplicity="1" />
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geographies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Provinces">
+              <PropertyRef Name="geography_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Province_Amphure">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="1" />
+          <End Role="Amphures" Type="Self.Amphures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Amphures">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMSModelStoreContainer">
+          <EntitySet Name="Amphures" EntityType="Self.Amphures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Amphure_Tumbon" Association="Self.FK_Amphure_Tumbon">
+            <End Role="Amphures" EntitySet="Amphures" />
+            <End Role="Tumbons" EntitySet="Tumbons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_id" Association="Self.FK_Article_id">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Geography_Province" Association="Self.FK_Geography_Province">
+            <End Role="Geographies" EntitySet="Geographies" />
+            <End Role="Provinces" EntitySet="Provinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Province_Amphure" Association="Self.FK_Province_Amphure">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Amphures" EntitySet="Amphures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Amphures" EntityType="HMSModel.Amphure" />
+          <EntitySet Name="Articles" EntityType="HMSModel.Article" />
+          <EntitySet Name="Comments" EntityType="HMSModel.Comment" />
+          <EntitySet Name="employees" EntityType="HMSModel.employee" />
+          <EntitySet Name="Geographies" EntityType="HMSModel.Geography" />
+          <EntitySet Name="Provinces" EntityType="HMSModel.Province" />
+          <EntitySet Name="Tumbons" EntityType="HMSModel.Tumbon" />
+          <AssociationSet Name="FK_Amphure_Tumbon" Association="HMSModel.FK_Amphure_Tumbon">
+            <End Role="Amphure" EntitySet="Amphures" />
+            <End Role="Tumbon" EntitySet="Tumbons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Province_Amphure" Association="HMSModel.FK_Province_Amphure">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Amphure" EntitySet="Amphures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_id" Association="HMSModel.FK_Article_id">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Geography_Province" Association="HMSModel.FK_Geography_Province">
+            <End Role="Geography" EntitySet="Geographies" />
+            <End Role="Province" EntitySet="Provinces" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Amphure">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="province_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="Boolean" />
+          <NavigationProperty Name="Tumbons" Relationship="HMSModel.FK_Amphure_Tumbon" FromRole="Amphure" ToRole="Tumbon" />
+          <NavigationProperty Name="Province" Relationship="HMSModel.FK_Province_Amphure" FromRole="Amphure" ToRole="Province" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isdeleted" Type="Boolean" />
+          <NavigationProperty Name="Comments" Relationship="HMSModel.FK_Article_id" FromRole="Article" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="article_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isdeleted" Type="Boolean" />
+          <NavigationProperty Name="Article" Relationship="HMSModel.FK_Article_id" FromRole="Comment" ToRole="Article" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="iswork" Type="Boolean" />
+          <Property Name="createdOn" Type="DateTime" Precision="3" />
+          <Property Name="isdeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Geography">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Provinces" Relationship="HMSModel.FK_Geography_Province" FromRole="Geography" ToRole="Province" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="geography_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="Boolean" />
+          <NavigationProperty Name="Amphures" Relationship="HMSModel.FK_Province_Amphure" FromRole="Province" ToRole="Amphure" />
+          <NavigationProperty Name="Geography" Relationship="HMSModel.FK_Geography_Province" FromRole="Province" ToRole="Geography" />
+        </EntityType>
+        <EntityType Name="Tumbon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="zip_code" Type="Int32" />
+          <Property Name="name_th" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="amphure_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="Boolean" />
+          <NavigationProperty Name="Amphure" Relationship="HMSModel.FK_Amphure_Tumbon" FromRole="Tumbon" ToRole="Amphure" />
+        </EntityType>
+        <Association Name="FK_Amphure_Tumbon">
+          <End Type="HMSModel.Amphure" Role="Amphure" Multiplicity="1" />
+          <End Type="HMSModel.Tumbon" Role="Tumbon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amphure">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tumbon">
+              <PropertyRef Name="amphure_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Province_Amphure">
+          <End Type="HMSModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="HMSModel.Amphure" Role="Amphure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Amphure">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_id">
+          <End Type="HMSModel.Article" Role="Article" Multiplicity="1" />
+          <End Type="HMSModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Geography_Province">
+          <End Type="HMSModel.Geography" Role="Geography" Multiplicity="1" />
+          <End Type="HMSModel.Province" Role="Province" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geography">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Province">
+              <PropertyRef Name="geography_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HMSModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Amphures">
+            <EntityTypeMapping TypeName="HMSModel.Amphure">
+              <MappingFragment StoreEntitySet="Amphures">
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="name_en" ColumnName="name_en" />
+                <ScalarProperty Name="name_th" ColumnName="name_th" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="HMSModel.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="HMSModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="article_id" ColumnName="article_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="HMSModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
+                <ScalarProperty Name="iswork" ColumnName="iswork" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Geographies">
+            <EntityTypeMapping TypeName="HMSModel.Geography">
+              <MappingFragment StoreEntitySet="Geographies">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="HMSModel.Province">
+              <MappingFragment StoreEntitySet="Provinces">
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="geography_id" ColumnName="geography_id" />
+                <ScalarProperty Name="name_en" ColumnName="name_en" />
+                <ScalarProperty Name="name_th" ColumnName="name_th" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tumbons">
+            <EntityTypeMapping TypeName="HMSModel.Tumbon">
+              <MappingFragment StoreEntitySet="Tumbons">
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="amphure_id" ColumnName="amphure_id" />
+                <ScalarProperty Name="name_en" ColumnName="name_en" />
+                <ScalarProperty Name="name_th" ColumnName="name_th" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

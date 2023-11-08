@@ -1,0 +1,47 @@
+﻿@model WebApplication1.Models.Article
+
+@{
+    ViewBag.Title = "More";
+}
+
+<h2>
+    Title @Html.DisplayFor(model => model.title)
+</h2>
+
+<p>
+    @Html.ActionLink("Add new comment", "CreateComment", new { id = Model.id})
+</p>
+<div>
+    <p>
+    @Html.DisplayFor(model => model.date)
+    </p>
+    <hr />
+    <br />
+    <div class="col-md-9 col-md-offset-3">
+    <table class="table table-bordered">
+        @foreach (var item in Model.Comments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit","Comments", new { id = item.id }, new { }) |
+                    @Html.ActionLink("Delete", "Delete","Comments", new { id = item.id},new { })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="height:50px; width:400px; border-bottom:5px; border-color:black;">
+                        @Html.DisplayFor(modelItem => item.body)
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
