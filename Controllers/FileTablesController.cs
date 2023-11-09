@@ -20,9 +20,10 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             var _filetable = from s in db.FileTables select s;
-            List<FileTable> filetable = _filetable.ToList();
 
-            return View(filetable);
+            _filetable = _filetable.Where(s => s.isdeleted == false);
+
+            return View(_filetable);
         }
 
         // GET: FileTables/Details/5
@@ -75,6 +76,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(fileTable);
         }
 

@@ -11,11 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.namefile)
+            Owner
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.namefile)
+            @Html.DisplayFor(model => model.name)
         </dd>
 
         <dt>
@@ -24,6 +24,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createOn)
         </dd>
 
         <dt>
