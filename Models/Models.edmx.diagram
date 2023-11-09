@@ -6,9 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="238ef5ab8618423c834604f94bf97b8a" Name="Diagram1">
         <EntityTypeShape EntityType="HMSModel.Amphure" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="HMSModel.Article" Width="1.5" PointX="0.75" PointY="4.875" />
-        <EntityTypeShape EntityType="HMSModel.Comment" Width="1.5" PointX="3" PointY="4.875" />
-        <EntityTypeShape EntityType="HMSModel.employee" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HMSModel.Article" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HMSModel.Comment" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="HMSModel.employee" Width="1.5" PointX="5.25" PointY="4.75" />
         <EntityTypeShape EntityType="HMSModel.Geography" Width="1.5" PointX="0.75" PointY="1.5" />
         <EntityTypeShape EntityType="HMSModel.Province" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="HMSModel.Tumbon" Width="1.5" PointX="7.5" PointY="1" />
@@ -16,6 +16,7 @@
         <AssociationConnector Association="HMSModel.FK_Province_Amphure" />
         <AssociationConnector Association="HMSModel.FK_Article_id" />
         <AssociationConnector Association="HMSModel.FK_Geography_Province" />
+        <EntityTypeShape EntityType="HMSModel.FileTable" Width="1.5" PointX="7.5" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

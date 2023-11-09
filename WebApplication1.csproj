@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\employeesController.cs" />
+    <Compile Include="Controllers\FileTablesController.cs" />
     <Compile Include="Controllers\GeographiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
@@ -159,6 +160,10 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employeeMetadata.cs" />
+    <Compile Include="Models\FileTable.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileTableMetadata.cs" />
     <Compile Include="Models\Geography.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -277,9 +282,16 @@
     <Content Include="Views\Tumbons\Details.cshtml" />
     <Content Include="Views\Tumbons\Edit.cshtml" />
     <Content Include="Views\Tumbons\Index.cshtml" />
+    <Content Include="Views\FileTables\Create.cshtml" />
+    <Content Include="Views\FileTables\Delete.cshtml" />
+    <Content Include="Views\FileTables\Details.cshtml" />
+    <Content Include="Views\FileTables\Edit.cshtml" />
+    <Content Include="Views\FileTables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Downloads\" />
+    <Folder Include="UserImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

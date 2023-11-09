@@ -84,5 +84,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FileTables">
+      <EntityTypeMapping TypeName="HMSModel.FileTable">
+        <MappingFragment StoreEntitySet="FileTable">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="createOn" ColumnName="createOn" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="namefile" ColumnName="namefile" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

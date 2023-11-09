@@ -44,6 +44,17 @@
     <Property Name="createdOn" Type="datetime" />
     <Property Name="isdeleted" Type="bit" />
   </EntityType>
+  <EntityType Name="FileTable">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="namefile" Type="nvarchar" MaxLength="50" />
+    <Property Name="path" Type="nvarchar(max)" />
+    <Property Name="isdeleted" Type="bit" />
+    <Property Name="createOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="Geographies">
     <Key>
       <PropertyRef Name="id" />
@@ -129,6 +140,7 @@
     <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FileTable" EntityType="Self.FileTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />

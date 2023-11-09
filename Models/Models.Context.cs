@@ -32,5 +32,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Geography> Geographies { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Tumbon> Tumbons { get; set; }
+        public virtual DbSet<FileTable> FileTables { get; set; }
     }
 }

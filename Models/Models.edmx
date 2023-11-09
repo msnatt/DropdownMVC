@@ -49,6 +49,17 @@
           <Property Name="createdOn" Type="datetime" />
           <Property Name="isdeleted" Type="bit" />
         </EntityType>
+        <EntityType Name="FileTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="namefile" Type="nvarchar" MaxLength="50" />
+          <Property Name="path" Type="nvarchar(max)" />
+          <Property Name="isdeleted" Type="bit" />
+          <Property Name="createOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Geographies">
           <Key>
             <PropertyRef Name="id" />
@@ -134,6 +145,7 @@
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileTable" EntityType="Self.FileTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />
@@ -182,6 +194,7 @@
             <End Role="Geography" EntitySet="Geographies" />
             <End Role="Province" EntitySet="Provinces" />
           </AssociationSet>
+          <EntitySet Name="FileTables" EntityType="HMSModel.FileTable" />
         </EntityContainer>
         <EntityType Name="Amphure">
           <Key>
@@ -315,6 +328,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FileTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="namefile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isdeleted" Type="Boolean" />
+          <Property Name="createOn" Type="DateTime" Precision="3" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -400,6 +424,18 @@
                 <ScalarProperty Name="name_en" ColumnName="name_en" />
                 <ScalarProperty Name="name_th" ColumnName="name_th" />
                 <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileTables">
+            <EntityTypeMapping TypeName="HMSModel.FileTable">
+              <MappingFragment StoreEntitySet="FileTable">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="createOn" ColumnName="createOn" />
+                <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="namefile" ColumnName="namefile" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

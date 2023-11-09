@@ -44,6 +44,7 @@ namespace WebApplication1.Controllers
 
                         var tom = from s in db.Tumbons where s.amphure_id == id_am select s;
                         List<Tumbon> tumbons = tom.ToList();
+                        
                         if (id_tom != null)
                         {
                             SelectList selectListItems_tom = new SelectList(tumbons, "id", "name_th",id_tom);
