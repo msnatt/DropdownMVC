@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\AmphuresController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -145,6 +146,9 @@
     <Compile Include="Controllers\TumbonsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Amphure.cs">
       <DependentUpon>Models.tt</DependentUpon>
@@ -287,6 +291,13 @@
     <Content Include="Views\FileTables\Details.cshtml" />
     <Content Include="Views\FileTables\Edit.cshtml" />
     <Content Include="Views\FileTables\Index.cshtml" />
+    <Content Include="Views\Addresses\DisplayTemplates\Address.cshtml" />
+    <Content Include="Views\Addresses\Create.cshtml" />
+    <Content Include="Views\Addresses\Delete.cshtml" />
+    <Content Include="Views\Addresses\Details.cshtml" />
+    <Content Include="Views\Addresses\Edit.cshtml" />
+    <Content Include="Views\Addresses\Index.cshtml" />
+    <Content Include="Views\Addresses\EditorTemplates\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

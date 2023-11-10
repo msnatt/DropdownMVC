@@ -42,6 +42,9 @@ audio:not([controls]) {
 template {
   display: none;
 }
+editorfor{
+    width: 10px;
+}
 a {
   background-color: transparent;
 }

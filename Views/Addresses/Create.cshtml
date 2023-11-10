@@ -1,0 +1,51 @@
+﻿@model List<WebApplication1.Models.Address>
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<button onclick="addform()">Add form</button>
+
+
+@using (Html.BeginForm("Create", "Addresses", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "myform", name = "myform" }))
+{
+    @Html.Hidden("isbool");
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.EditorFor(m => m)
+
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Create" class="btn btn-default" onclick="addToDB()"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function addform() {
+        document.getElementById('isbool').value = false;
+
+        $("#myform").attr("action", '@Url.Action("Create","Addresses")');
+        $("#myform").submit();
+    }
+    function addToDB() {
+        document.getElementById('isbool').value = true;
+
+        $("#myform").attr("action", '@Url.Action("Create","Addresses")');
+        $("#myform").submit();
+    }
+    
+
+
+</script>

@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+    <Property Name="middlename" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+    <Property Name="street" Type="nvarchar" MaxLength="50" />
+    <Property Name="city" Type="nvarchar" MaxLength="50" />
+    <Property Name="zipcode" Type="int" />
+    <Property Name="isdeleted" Type="bit" />
+  </EntityType>
   <EntityType Name="Amphures">
     <Key>
       <PropertyRef Name="id" />
@@ -136,6 +149,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="HMSModelStoreContainer">
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Amphures" EntityType="Self.Amphures" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
