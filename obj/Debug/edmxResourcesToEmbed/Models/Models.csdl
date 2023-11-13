@@ -26,6 +26,11 @@
     </AssociationSet>
     <EntitySet Name="FileTables" EntityType="HMSModel.FileTable" />
     <EntitySet Name="Addresses" EntityType="HMSModel.Address" />
+    <EntitySet Name="Residents" EntityType="HMSModel.Resident" />
+    <AssociationSet Name="FK_Resident_Address" Association="HMSModel.FK_Resident_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="Resident" EntitySet="Residents" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Amphure">
     <Key>
@@ -182,5 +187,29 @@
     <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="zipcode" Type="Int32" />
     <Property Name="isdeleted" Type="Boolean" />
+    <NavigationProperty Name="Residents" Relationship="HMSModel.FK_Resident_Address" FromRole="Address" ToRole="Resident" />
   </EntityType>
+  <EntityType Name="Resident">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address_id" Type="Int32" />
+    <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ideleted" Type="Boolean" />
+    <NavigationProperty Name="Address" Relationship="HMSModel.FK_Resident_Address" FromRole="Resident" ToRole="Address" />
+  </EntityType>
+  <Association Name="FK_Resident_Address">
+    <End Type="HMSModel.Address" Role="Address" Multiplicity="0..1" />
+    <End Type="HMSModel.Resident" Role="Resident" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Resident">
+        <PropertyRef Name="address_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

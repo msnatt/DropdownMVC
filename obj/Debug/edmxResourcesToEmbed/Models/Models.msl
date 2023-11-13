@@ -110,5 +110,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Residents">
+      <EntityTypeMapping TypeName="HMSModel.Resident">
+        <MappingFragment StoreEntitySet="Resident">
+          <ScalarProperty Name="ideleted" ColumnName="ideleted" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="address_id" ColumnName="address_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

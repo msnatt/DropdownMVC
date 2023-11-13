@@ -143,6 +143,7 @@
     <Compile Include="Controllers\GeographiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
+    <Compile Include="Controllers\ResidentsController.cs" />
     <Compile Include="Controllers\TumbonsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +151,7 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddressMain.cs" />
     <Compile Include="Models\Amphure.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -190,6 +192,9 @@
     <Compile Include="Models\Province.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Resident.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tumbon.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -225,6 +230,7 @@
     <Content Include="Models\Models.edmx.diagram">
       <DependentUpon>Models.edmx</DependentUpon>
     </Content>
+    <Compile Include="Models\AddressesMetadata.cs" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -298,6 +304,12 @@
     <Content Include="Views\Addresses\Edit.cshtml" />
     <Content Include="Views\Addresses\Index.cshtml" />
     <Content Include="Views\Addresses\EditorTemplates\Address.cshtml" />
+    <Content Include="Views\Addresses\EditorTemplates\Resident.cshtml" />
+    <Content Include="Views\Residents\Create.cshtml" />
+    <Content Include="Views\Residents\Delete.cshtml" />
+    <Content Include="Views\Residents\Details.cshtml" />
+    <Content Include="Views\Residents\Edit.cshtml" />
+    <Content Include="Views\Residents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

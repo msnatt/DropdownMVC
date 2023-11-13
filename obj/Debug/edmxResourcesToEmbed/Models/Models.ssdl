@@ -87,6 +87,16 @@
     <Property Name="updated_at" Type="datetime" />
     <Property Name="deleted_at" Type="bit" />
   </EntityType>
+  <EntityType Name="Resident">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="address_id" Type="int" />
+    <Property Name="tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="ideleted" Type="bit" />
+  </EntityType>
   <EntityType Name="Tumbons">
     <Key>
       <PropertyRef Name="id" />
@@ -148,6 +158,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Resident_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Resident" Type="Self.Resident" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Resident">
+        <PropertyRef Name="address_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="HMSModelStoreContainer">
     <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Amphures" EntityType="Self.Amphures" Schema="dbo" store:Type="Tables" />
@@ -157,6 +179,7 @@
     <EntitySet Name="FileTable" EntityType="Self.FileTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resident" EntityType="Self.Resident" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Amphure_Tumbon" Association="Self.FK_Amphure_Tumbon">
       <End Role="Amphures" EntitySet="Amphures" />
@@ -173,6 +196,10 @@
     <AssociationSet Name="FK_Province_Amphure" Association="Self.FK_Province_Amphure">
       <End Role="Provinces" EntitySet="Provinces" />
       <End Role="Amphures" EntitySet="Amphures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resident_Address" Association="Self.FK_Resident_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Resident" EntitySet="Resident" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

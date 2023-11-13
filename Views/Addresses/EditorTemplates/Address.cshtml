@@ -1,4 +1,7 @@
 ﻿@model WebApplication1.Models.Address
+
+@Html.HiddenFor(model => model.isaddres,new { Value = false})
+
 <div class="row" style="padding:0px 15px 0px 15px">
     <div class="form-group col-sm-4">
         <div>
@@ -58,6 +61,10 @@
     </div>
 </div>
 
+<div class="row" style="padding:0px 15px 0px 15px">
+    <input type="submit" value="Add resident" class="btn btn-default" onclick="addresident(@Html.IdFor(m  => m.isaddres))" />
+    @Html.EditorFor(m => m.Residents)
+</div>
 <hr />
 
 

@@ -17,8 +17,10 @@
         <AssociationConnector Association="HMSModel.FK_Article_id" />
         <AssociationConnector Association="HMSModel.FK_Geography_Province" />
         <EntityTypeShape EntityType="HMSModel.FileTable" Width="1.5" PointX="7.5" PointY="4.75" />
-        <EntityTypeShape EntityType="HMSModel.Address" Width="1.5" PointX="9.625" PointY="1" />
-      </Diagram>
+        <EntityTypeShape EntityType="HMSModel.Address" Width="1.5" PointX="9.75" PointY="1" />
+        <EntityTypeShape EntityType="HMSModel.Resident" Width="1.5" PointX="12" PointY="1.25" />
+        <AssociationConnector Association="HMSModel.FK_Resident_Address" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

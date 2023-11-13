@@ -1,5 +1,4 @@
-﻿@model List<WebApplication1.Models.Address>
-
+﻿@model WebApplication1.Models.AddressMain
 
 @{
     ViewBag.Title = "Create";
@@ -7,19 +6,22 @@
 
 <h2>Create</h2>
 <button onclick="addform()">Add form</button>
+<button onclick="deleteform()">Delete form</button>
 
 
 @using (Html.BeginForm("Create", "Addresses", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "myform", name = "myform" }))
 {
-    @Html.Hidden("isbool");
+    @Html.Hidden("isadd", false);
+    @Html.Hidden("isdelete",false);
+    @Html.Hidden("isAddResident",false);
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        @Html.EditorFor(m => m)
+        @Html.EditorFor(m => m.addressList)
 
         <div class="form-group">
             <div>
-                <input type="submit" value="Create" class="btn btn-default" onclick="addToDB()"/>
+                <input type="submit" value="Create" class="btn btn-default" onclick="addToDB()" />
             </div>
         </div>
     </div>
@@ -34,18 +36,40 @@
 }
 <script>
     function addform() {
-        document.getElementById('isbool').value = false;
+        document.getElementById('isadd').value = true;
+        document.getElementById('isdelete').value = false;
+        document.getElementById('isAddResident').value = false;
 
         $("#myform").attr("action", '@Url.Action("Create","Addresses")');
         $("#myform").submit();
     }
     function addToDB() {
-        document.getElementById('isbool').value = true;
+        document.getElementById('isadd').value = false;
 
         $("#myform").attr("action", '@Url.Action("Create","Addresses")');
         $("#myform").submit();
     }
+    function deleteform() {
+        document.getElementById('isadd').value = false;
+        document.getElementById('isdelete').value = true;
+        document.getElementById('isAddResident').value = false;
+
+
+        $("#myform").attr("action", '@Url.Action("Create","Addresses")');
+        $("#myform").submit();
+    }
+    function addresident(e) {
+        document.getElementById('isadd').value = true;
+        document.getElementById('isdelete').value = false;
+        document.getElementById('isAddResident').value = true;
+        e.value = true;
+    }
+    function deleteResident(e) {
+        document.getElementById('isadd').value = true;
+        document.getElementById('isdelete').value = false;
+        document.getElementById('isAddResident').value = false;
+        e.value = true;
+    }
     
-
-
 </script>
+

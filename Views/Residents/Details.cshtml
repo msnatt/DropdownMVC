@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.Resident
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Resident</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ideleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ideleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address.firstname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -14,6 +14,12 @@ namespace WebApplication1.Models
     
     public partial class Address
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Address()
+        {
+            this.Residents = new HashSet<Resident>();
+        }
+    
         public int id { get; set; }
         public string firstname { get; set; }
         public string middlename { get; set; }
@@ -22,5 +28,8 @@ namespace WebApplication1.Models
         public string city { get; set; }
         public Nullable<int> zipcode { get; set; }
         public Nullable<bool> isdeleted { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Resident> Residents { get; set; }
     }
 }

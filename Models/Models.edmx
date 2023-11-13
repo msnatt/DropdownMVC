@@ -92,6 +92,16 @@
           <Property Name="updated_at" Type="datetime" />
           <Property Name="deleted_at" Type="bit" />
         </EntityType>
+        <EntityType Name="Resident">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address_id" Type="int" />
+          <Property Name="tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="ideleted" Type="bit" />
+        </EntityType>
         <EntityType Name="Tumbons">
           <Key>
             <PropertyRef Name="id" />
@@ -153,6 +163,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Resident_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Resident" Type="Self.Resident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Resident">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HMSModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Amphures" EntityType="Self.Amphures" Schema="dbo" store:Type="Tables" />
@@ -162,6 +184,7 @@
           <EntitySet Name="FileTable" EntityType="Self.FileTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Geographies" EntityType="Self.Geographies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resident" EntityType="Self.Resident" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tumbons" EntityType="Self.Tumbons" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Amphure_Tumbon" Association="Self.FK_Amphure_Tumbon">
             <End Role="Amphures" EntitySet="Amphures" />
@@ -178,6 +201,10 @@
           <AssociationSet Name="FK_Province_Amphure" Association="Self.FK_Province_Amphure">
             <End Role="Provinces" EntitySet="Provinces" />
             <End Role="Amphures" EntitySet="Amphures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resident_Address" Association="Self.FK_Resident_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Resident" EntitySet="Resident" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -210,7 +237,12 @@
           </AssociationSet>
           <EntitySet Name="FileTables" EntityType="HMSModel.FileTable" />
           <EntitySet Name="Addresses" EntityType="HMSModel.Address" />
-        </EntityContainer>
+          <EntitySet Name="Residents" EntityType="HMSModel.Resident" />
+          <AssociationSet Name="FK_Resident_Address" Association="HMSModel.FK_Resident_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Resident" EntitySet="Residents" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Amphure">
           <Key>
             <PropertyRef Name="id" />
@@ -366,7 +398,31 @@
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="zipcode" Type="Int32" />
           <Property Name="isdeleted" Type="Boolean" />
+          <NavigationProperty Name="Residents" Relationship="HMSModel.FK_Resident_Address" FromRole="Address" ToRole="Resident" />
         </EntityType>
+        <EntityType Name="Resident">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address_id" Type="Int32" />
+          <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ideleted" Type="Boolean" />
+          <NavigationProperty Name="Address" Relationship="HMSModel.FK_Resident_Address" FromRole="Resident" ToRole="Address" />
+        </EntityType>
+        <Association Name="FK_Resident_Address">
+          <End Type="HMSModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="HMSModel.Resident" Role="Resident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Resident">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -482,7 +538,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Residents">
+            <EntityTypeMapping TypeName="HMSModel.Resident">
+              <MappingFragment StoreEntitySet="Resident">
+                <ScalarProperty Name="ideleted" ColumnName="ideleted" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

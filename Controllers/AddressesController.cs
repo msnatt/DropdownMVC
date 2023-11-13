@@ -17,7 +17,8 @@ namespace WebApplication1.Controllers
         // GET: Addresses
         public ActionResult Index()
         {
-            return View(db.Addresses.ToList());
+            var addresses = from s in db.Addresses where s.isdeleted == false select s;
+            return View(addresses);
         }
 
         // GET: Addresses/Details/5
@@ -34,37 +35,102 @@ namespace WebApplication1.Controllers
             }
             return View(address);
         }
+        public ActionResult AddResident(int? id)
+        {
+
+            return RedirectToAction("Create");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddResident(List<Resident> residents)
+        {
+
+            return View();
+        }
+
 
         // GET: Addresses/Create
         public ActionResult Create()
         {
-            List<Address> addresses = new List<Address>();
-            addresses.Add(new Address());
-            return View(addresses);
+            //List<Address> addresses = new List<Address>();
+            AddressMain addressMain = new AddressMain();
+            addressMain.addressList = new List<Address>();
+            addressMain.addressList.Add(new Address());
+
+            return View(addressMain);
         }
 
         // POST: Addresses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,firstname,middlename,lastname,street,city,zipcode,isdeleted")] List<Address> address, bool isbool)
+        public ActionResult Create(AddressMain addressMain, bool isadd, bool isdelete, bool isAddResident)
         {
-            if (!isbool) //isbool = false => addform
+            foreach (var item in addressMain.addressList)
             {
-                address.Add(new Address());
-                return View(address);
+                if (item.Residents.Where(s => s.ideleted == true).Count() > 0)
+                {
+                    item.Residents = item.Residents.Where(s => s.ideleted != true).ToList();
+                    ModelState.Clear();
+                    return View(addressMain);
+                }
+            }
+            if (isadd) //isbool = false => addform
+            {
+                if (isAddResident)
+                {
+                    foreach (var item in addressMain.addressList)
+                    {
+                        if (item.isaddres == true)
+                        {
+                            item.Residents.Add(new Resident());
+                            //item.isaddres = false;
+                        }
+                    }
+                    return View(addressMain);
+                }
+                else
+                {
+                    if (addressMain.addressList != null)
+                    {
+                        addressMain.addressList.Add(new Address());
+                        return View(addressMain);
+                    }
+                    else
+                    {
+                        addressMain.addressList = new List<Address>();
+                        addressMain.addressList.Add(new Address());
+                        return View(addressMain);
 
+                    }
+                }
             }
             else //sent to database
             {
-                foreach (var i in address)
+                if (isdelete)
                 {
-                    i.isdeleted = false;
-                    db.Addresses.Add(i);
-                    db.SaveChanges();
+                    if (addressMain.addressList != null)
+                    {
+                        addressMain.addressList.RemoveAt(addressMain.addressList.Count - 1);
+                        return View(addressMain);
+                    }
+                    else
+                    {
+                        return View(addressMain);
+                    }
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    foreach (var i in addressMain.addressList)
+                    {
+                        i.isdeleted = false;
+                        db.Addresses.Add(i);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
             }
 
         }

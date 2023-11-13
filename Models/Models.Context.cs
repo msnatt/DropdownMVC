@@ -34,5 +34,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Tumbon> Tumbons { get; set; }
         public virtual DbSet<FileTable> FileTables { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Resident> Residents { get; set; }
     }
 }
