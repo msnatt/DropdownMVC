@@ -18,8 +18,9 @@ namespace WebApplication1.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            var article = from s in db.Articles select s;
-            article = article.Where(s => s.isdeleted == null);
+            var article = from s in db.Articles where(s.isdeleted == null) select s;
+
+            // article = article.Where(s => s.isdeleted == null);
 
             return View(article);
         }

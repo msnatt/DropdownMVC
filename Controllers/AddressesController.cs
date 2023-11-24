@@ -68,14 +68,18 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(AddressMain addressMain, bool isadd, bool isdelete, bool isAddResident)
         {
-            foreach (var item in addressMain.addressList)
+            if (addressMain.addressList != null)
             {
-                if (item.Residents.Where(s => s.ideleted == true).Count() > 0)
+                foreach (var item in addressMain.addressList)
                 {
-                    item.Residents = item.Residents.Where(s => s.ideleted != true).ToList();
-                    ModelState.Clear();
-                    return View(addressMain);
+                    if (item.Residents.Where(s => s.ideleted == true).Count() > 0)
+                    {
+                        item.Residents = item.Residents.Where(s => s.ideleted != true).ToList();
+                        ModelState.Clear();
+                        return View(addressMain);
+                    }
                 }
+
             }
             if (isadd) //isbool = false => addform
             {
