@@ -17,6 +17,7 @@
 
         $("#id_pro").remove();
         $("#id_am").remove();
+        $("#id_tom").remove();
 
 
         $("#myform").attr("action", '@Url.Action("Index", "Home")');
@@ -26,7 +27,7 @@
         document.getElementById('isbool').value = false;
 
         $("#id_am").remove();
-        //$("#period").remove();
+        $("#id_tom").remove();
 
 
         $("#myform").attr("action", '@Url.Action("Index", "Home")');
@@ -36,7 +37,6 @@
         document.getElementById('isbool').value = false;
 
         $("#id_tom").remove();
-        //$("#period").remove();
 
 
         $("#myform").attr("action", '@Url.Action("Index", "Home")');
@@ -44,9 +44,6 @@
     };
     function changeTumbon() {
         document.getElementById('isbool').value = false;
-
-        //$("#id_am").remove();
-        //$("#period").remove();
 
 
         $("#myform").attr("action", '@Url.Action("Index", "Home")');
